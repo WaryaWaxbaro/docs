@@ -39,26 +39,27 @@ var aiBases = [];
 var moveChecker = false;
 var aiBaseConts = [];
 
-startingCommand();
+var myTimer = null;
+
+var choice = prompt("Do you want try the game yes(y)").toUpperCase();
+startingCommand(choice);
 getCellPosition();
 //populateTable();
 
-function startingCommand(){
-	var choice = prompt("Do you want try the game yes(y) or no (n)").toUpperCase();
-	if(choice=== yes.toUpperCase()){
+function startingCommand(choice){
+	if(choice === yes.toUpperCase()){
 		populateTable();
 		huTurn = true;
 		turner.classList.add("yourturn");
 		turner.textContent = "Your turn, move faster";
+	}else if(choice === null){
+		clearInterval(myTimer);
+		tabCounts = 0;
 	}
-	else if(choice === no.toUpperCase()){
-		populateTable();
-		aiTurn = true;
-		turner.classList.add("myturn");
-		turner.textContent = "My turn, Please wait";
-	}else{
+	else{
 		alert("Your choise is unknown, " + 
 			"\nplease refresh the page and choose yes(y)");
+		clearInterval(myTimer);
 	}
 }
 
@@ -561,12 +562,14 @@ document.onclick = function(){
 		jumpUpSucceess();
 		jumpDownSucceess();
 		humanP.textContent = humanPoints;
+	}else{
+
 	}
 }
 
 
 function myFunction() {
-  setInterval(turnFunc, 5000);
+  myTimer = setInterval(turnFunc, 5000);
 }
 
 function turnFunc() {
@@ -601,7 +604,7 @@ function checkLooseOrWin(x, y){
 		result();
 	}
 }
-
+var again = null;
 function result(){
 	if(gameFinnished){
 		huTurn = false;
@@ -610,8 +613,16 @@ function result(){
 		compPoints = 0;
 		humanP.textContent = humanPoints;
 		compP.textContent = compPoints;
-		startingCommand();
-		populateTable();
+		clearInterval(myTimer);
+		turner.textContent = "GAME OVER!";
+		/*again = prompt("Do you want try the game again yes(y)").toUpperCase();
+		if(again === null || again === ""){
+			clearInterval(myTimer);
+			tabCounts = 0;
+		}else{
+			startingCommand(again);
+		}*/
+		//populateTable();
 	}
 }
 

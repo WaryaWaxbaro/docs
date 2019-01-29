@@ -1,0 +1,97 @@
+body{
+	margin: 0;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+table{
+	margin: 0 auto;
+	border-collapse: collapse;
+}
+td{
+	text-align: center;
+	width: 100px;
+	height: 100px;
+	border: 3px solid white;
+	cursor: pointer;
+}
+
+h1, h3{
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+#headContainer{
+	margin: 0 0;
+	padding: 10px;
+	width: 100%;
+	background-color: #20252d;
+	color: white;
+}
+
+#headContainer h1{
+	margin: 10px 0;
+	font-size: 3.0rem;
+	letter-spacing: 0.5rem;
+}
+
+p{
+	margin: 20px 20px;
+	font-size: 1.2rem;
+	letter-spacing: 0.15rem;
+	line-height: 1.6;
+	text-align: center;
+}
+
+.activated{
+	border: 4px solid black;
+}
+
+#col{
+	margin: 0;
+	font-family: 'Bungee Inline', cursive;
+	font-size: 2.5rem;
+	padding: 2px;
+	background-color: #FF7F50; 
+	color: white;
+}
+
+#actionContainer{
+	width: 100%;
+	margin-left: auto;
+	padding: 0;
+	display: inline-flex;
+	float: none;
+}
+
+#actionTurn{
+	width: 50%;
+	margin: 0 auto;
+}
+
+#infoContainer{
+	width: 50%;
+	margin: 0 auto;
+	padding: 0;
+}
+
+#footcontainer{
+	margin: 0;
+	width: 100%;
+	height: 250px;
+}
+
+.myturn{
+	color: red;
+	font-weight: bold;
+}
+
+.yourturn{
+	color: green;
+	font-weight: bold;
+}
+
+@media (min-width:961px){
+	#headContainer p{
+		margin: 20px 100px;
+	}
+}

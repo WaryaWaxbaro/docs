@@ -1,0 +1,106 @@
+/*
+font-family: 'Orbitron', sans-serif;
+font-family: 'Ubuntu', sans-serif;
+*/
+
+body{
+	margin: 0;
+	padding: 0;
+	font-family: 'Ubuntu', sans-serif;
+}
+
+.navbar{
+	margin-bottom: 0;
+}
+
+.navbar-nav{
+	font-size: 2.0rem;
+	background: transparent;
+}
+
+.navbar-inverse{
+	background: #20252d;
+	border-radius: 0;
+	border: none;
+}
+
+.navbar-brand{
+	background: url("../images/brandsmall.png") no-repeat center;
+	width: 120px;
+	height: 60px;
+
+}
+
+#brandfont {
+	font-family: 'Orbitron', sans-serif;
+	font-weight: 900;
+	padding: 6px;
+	border: 1px solid orange;
+	background-color: orange;
+	font-size: 25px;
+	border-radius: 50%;
+	text-decoration: none;
+}
+
+#img-container{
+}
+
+#jumbotronContainer{
+	background: #FF7F50;
+	margin-bottom: 0;
+	margin-top: 60px;
+}
+
+.img-circle{
+	display: block;
+  	margin-left: auto;
+  	margin-right: auto;
+  	width: 100%;
+  	height: 100%;
+}
+
+#text-container{
+	color: white;
+	font-weight: bold;
+	text-align: center;
+}
+
+#name-style{
+	margin: 0;
+	font-size: 4vw;
+	line-height: 2.0;
+	letter-spacing: 0.1875em;
+}
+
+
+#name-student{
+	margin: 0;
+	font-size: 1.5vw;
+	line-height: 1.6;
+	letter-spacing: 0.0625em;
+}
+
+.career-container{
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	background: #20252d;
+	color: white;
+}
+
+#objective-container{
+	font-size: 1.5em;
+	line-height: 1.6;
+	letter-spacing: 0.0625em;
+	color: black;
+	padding: 20px 0;
+}
+
+#sub-heading{
+	margin: 0;
+	font-size: 1.5em;
+	line-height: 1.6;
+	letter-spacing: 0.125em;
+	font-weight: bold;
+}
+

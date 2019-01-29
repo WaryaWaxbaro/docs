@@ -2,6 +2,8 @@
 <html>
 <head>
 	<title>Shakur Hassan</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://fonts.googleapis.com/css?family=Orbitron:400,700,900|Ubuntu:400,700" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -10,7 +12,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav id="mainNavbar" class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -27,8 +29,8 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home <span class="sr-only">(current)</span></a></li>
+      <ul id="subnavbar" class="nav navbar-nav">
+        <li><a href="#">Home <span class="sr-only">(current)</span></a></li>
         <li><a href="jarkabood.html">Game</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -39,7 +41,7 @@
 	<div class="container" id="img-container">
     <div class="row">
       <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-        <img src="images/me.jpg" class="img-circle" alt="This is my image">
+        <img src="images/me.png" class="img-circle" alt="Shakur image">
       </div>
       <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10" id="text-container">
         <p id="name-style">ABDISHAKUR HASSAN</p>
@@ -140,5 +142,13 @@
  </script>
  <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(function(){
+      $(document).scroll(function(){
+        var $nav = $("#mainNavbar");
+        $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
+      })
+    })
+</script>
 </body>
 </html>

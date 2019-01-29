@@ -110,12 +110,24 @@ body{
 
 @media only screen and (max-width: 600px){
 	#name-style{
-		font-size: 1.5;
+		font-size: 1.3em;
 	}
 
 	.img-circle{
 	  	width: 200%;
 	  	height: 200%;
+	}
+
+	#name-student{
+		font-size: 0.6em;
+	}
+
+	#objective-container{
+		font-size: 1.0em;
+	}
+
+	#sub-heading{
+		font-size: 1.0em;
 	}
 }
 

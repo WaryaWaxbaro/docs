@@ -121,6 +121,19 @@ body{
 	margin-top: 25px;
 }
 
+#footercontainer{
+	margin-top: 25px;
+	margin-bottom: 0;
+	padding: 0;
+}
+
+#footercontainer .jumbotron{
+	margin-bottom: 0;
+	border-radius: 0;
+	background: #20252d;
+	color: white;
+}
+
 @media only screen and (max-width: 600px){
 	#name-style{
 		font-size: 1.3em;

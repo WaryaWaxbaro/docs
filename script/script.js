@@ -146,81 +146,61 @@ function getContentByRowColumn(row, col){
 }
 
 function rowUp(){
-	return prevRow - 1;
+	return checkUpperLowerLimit(prevRow - 1);
 }
 
 function rowDown(){
-	return prevRow + 1;
+	return checkUpperLowerLimit(prevRow + 1);
 }
 
 function colRight(){
-	return prevCol + 1;
+	return checkUpperLowerLimit(prevCol + 1);
 }
 
 function colLeft(){
-	return prevCol - 1;
+	return checkUpperLowerLimit(prevCol - 1);
 }
 
 function moveUpRight(){
-	var rowRightUp = checkUpperLowerLimit(rowUp());
-	var colRightUp = checkUpperLowerLimit(colRight()); //colRight();
-	if(rowRightUp >= 0 && colRightUp >= 0){
-		return squres.rows[rowRightUp].cells[colRightUp].textContent;
-	}
+	return squres.rows[rowUp()].cells[colRight()].textContent;
 }
 
 function moveUpLeft(){
-	var rowLeftUp = checkUpperLowerLimit(rowUp()) //rowUp();
-	var colLeftUp = checkUpperLowerLimit(colLeft()) //colLeft();
-	if(rowLeftUp >= 0 && colLeftUp >= 0){
-		return squres.rows[rowLeftUp].cells[colLeftUp].textContent;
-	}
+	return squres.rows[rowUp()].cells[colLeft()].textContent;
 }
 
 function moveDownRight(){
-	var rowRightDown = checkUpperLowerLimit(rowDown());
-	var colRightDown = checkUpperLowerLimit(colRight()); //colRight();
-	if(rowRightDown >= 0 && colRightDown >= 0){
-		return squres.rows[rowRightDown].cells[colRightDown].textContent;
-	}
+	return squres.rows[rowDown()].cells[colRight()].textContent;
 }
 
 function moveDownLeft(){
-	var rowLeftDown = checkUpperLowerLimit(rowDown()) //rowUp();
-	var colLeftDown = checkUpperLowerLimit(colLeft()) //colLeft();
-	if(rowLeftDown >= 0 && colLeftDown >= 0){
-		return squres.rows[rowLeftDown].cells[colLeftDown].textContent;
-	}
+	return squres.rows[rowDown()].cells[colLeft()].textContent;
 }
 
 function moveUp(){
-	var upSide = checkUpperLowerLimit(rowUp());
-	if((upSide >= 0 && upSide < 5) && prevCol === currentCol)
-		return squres.rows[upSide].cells[currentCol].textContent;
+	if(rowUp() >= 0 && prevCol === currentCol)
+	return squres.rows[rowUp()].cells[currentCol].textContent;
 }
 
 function moveDown(){
-	var downSide = checkUpperLowerLimit(rowDown());
-	if(downSide >= 0 || downSide < 5 && prevCol === currentCol)
-		return squres.rows[downSide].cells[currentCol].textContent;
+	if(rowDown() >= 0 && prevCol === currentCol)
+		return squres.rows[rowDown()].cells[currentCol].textContent;
 }
 
 function moveRight(){
-	var righSide = checkUpperLowerLimit(colRight());
-	if(righSide >= 0 || righSide < 5 && prevRow === currentRow)
-		return squres.rows[currentRow].cells[righSide].textContent;
+	if(colRight() >= 0 && prevRow === currentRow)
+		return squres.rows[currentRow].cells[colRight()].textContent;
 }
 
 function moveLeft(){
-	var leftSide = checkUpperLowerLimit(colLeft());
-	if(leftSide >= 0 || leftSide < 5 && prevRow === currentRow){
-		return squres.rows[currentRow].cells[leftSide].textContent;
+	if(colLeft() >= 0 && prevRow === currentRow){
+		return squres.rows[currentRow].cells[colLeft()].textContent;
 	}
 }
 
-function canMoveUp(){
-	if(moveUp() === "" && currentCol === prevCol 
-		&& currentRow === checkUpperLowerLimit(rowUp())
+function canMoveUpAndDown(x, y){
+	if(x === "" && currentCol === prevCol 
+		&& currentRow === y
 		&& getCurContent() === "" && getPrevContent() === humanPlayer){
 		return true;
 	}else{
@@ -228,9 +208,9 @@ function canMoveUp(){
 	}
 }
 
-function canMoveDown(){
-	if(moveDown() === "" && currentCol === prevCol
-		&& currentRow === checkUpperLowerLimit(rowDown())
+function canMoveRightAndLeft(x, y){
+	if(x === "" && currentRow === prevRow
+		&& currentCol === y
 		&& getCurContent() === "" && getPrevContent() === humanPlayer){
 		return true;
 	}else{
@@ -238,29 +218,8 @@ function canMoveDown(){
 	}
 }
 
-function canMoveRight(){
-	if(moveRight() === "" && currentRow === prevRow
-		&& currentCol === checkUpperLowerLimit(colRight())
-		&& getCurContent() === "" && getPrevContent() === humanPlayer){
-		return true;
-	}else{
-		return false;
-	}
-}
-
-function canMoveLeft(){
-	if(moveLeft() === "" && currentRow === prevRow
-		&& currentCol === checkUpperLowerLimit(colLeft())
-		&& getCurContent() === "" && getPrevContent() === humanPlayer){
-		return true;
-	}else{
-		return false;
-	}
-}
-
-function canMoveUpRight(){
-	if(moveUpRight() === "" && (checkUpperLowerLimit(rowUp()) === currentRow)
-		&& checkUpperLowerLimit(colRight()) === currentCol
+function moveDiagonal(x, y, z){
+	if(x === "" && y === currentRow && z === currentCol
 		&& getCurContent() === "" && getPrevContent() === humanPlayer) {
 		return true;
 	}else{
@@ -268,30 +227,46 @@ function canMoveUpRight(){
 	}
 }
 
-function canMoveUpLeft(){
-	if(moveUpLeft() === "" && (checkUpperLowerLimit(rowUp()) === currentRow) 
-		&& checkUpperLowerLimit(colLeft()) === currentCol
-		&& getCurContent() === "" && getPrevContent() === humanPlayer){
-		return true;
-	}else{
-		return false;
-	}
+function curRowPlusOne(){
+	return checkUpperLowerLimit(currentRow + 1);
 }
 
-function canMoveDownRight(){
-	if(moveDownRight() === "" && (checkUpperLowerLimit(rowDown()) === currentRow)
-		&& checkUpperLowerLimit(colRight()) === currentCol
-		&& getCurContent() === "" && getPrevContent() === humanPlayer){
-		return true;
-	}else{
-		return false;
-	}
+function curRowMinOne(){
+	return checkUpperLowerLimit(currentRow - 1);
 }
 
-function canMoveDownLeft(){
-	if(moveDownLeft() === "" && (checkUpperLowerLimit(rowDown()) === currentRow)
-		&& checkUpperLowerLimit(colLeft()) === currentCol
-		&& getCurContent() === "" && getPrevContent() === humanPlayer){
+function curColPlusOne(){
+	return checkUpperLowerLimit(currentCol + 1);
+}
+
+function curColMinOne(){
+	return checkUpperLowerLimit(currentCol - 1);
+}
+
+function prevRowPlusOne(){
+	return checkUpperLowerLimit(prevRow + 1);
+}
+
+function prevRowMinOne(){
+	return checkUpperLowerLimit(prevRow - 1);
+}
+
+function prevColPlusOne(){
+	return checkUpperLowerLimit(prevCol + 1);
+}
+
+function prevColMinOne(){
+	return checkUpperLowerLimit(prevCol - 1);
+}
+
+//x --> currentRow + 1
+//y --> jumpUp()
+function jumpUpDownPossible(x, y){
+	if(getPrevContent() !== getJumpedOverContent(x, currentCol) &&
+		getJumpedOverContent(x, currentCol) !== "" &&
+		getCurContent() === "" && currentRow === y  && getPrevContent() === "O"
+		&& prevCol == currentCol)
+	{
 		return true;
 	}else{
 		return false;
@@ -302,25 +277,16 @@ function jumpUp(){
 	return checkUpperLowerLimit(prevRow - 2);
 }
 
-function canJumpUpOver(){
-	if(getPrevContent() !== getJumpedOverContent(checkUpperLowerLimit(currentRow + 1), currentCol) &&
-		getJumpedOverContent(checkUpperLowerLimit(currentRow + 1), currentCol) !== "" &&
-		getCurContent() === "" && currentRow === checkUpperLowerLimit(jumpUp())  && getPrevContent() === "O")
-	{
-		return true;
-	}else{
-		return false;
-	}
+function yesJumpsUpDown(x){
+	squres.rows[currentRow].cells[currentCol].textContent = getPrevContent();
+	humanTurnBackground(prevRow, prevCol);
+	squres.rows[x].cells[currentCol].textContent = "";
+	humanPoints++;
 }
 
 function jumpUpSucceess(){
-	if(canJumpUpOver()){
-		squres.rows[currentRow].cells[currentCol].textContent = getPrevContent();
-		humanTurnBackground(prevRow, prevCol);
-		squres.rows[checkUpperLowerLimit(currentRow + 1)].cells[currentCol].textContent = "";
-		humanPoints++;
-	}else{
-		console.log("Jumping over was not successfull");
+	if(jumpUpDownPossible(curRowPlusOne(), jumpUp())){
+		yesJumpsUpDown(curRowPlusOne());
 	}
 }
 
@@ -328,10 +294,21 @@ function jumpDown(){
 	return checkUpperLowerLimit(prevRow + 2);
 }
 
-function canJumpDownOver(){
-	if(getPrevContent() !== getJumpedOverContent(checkUpperLowerLimit(currentRow - 1), currentCol) &&
-		getJumpedOverContent(checkUpperLowerLimit(currentRow - 1), currentCol) !== "" &&
-		getCurContent() === "" && currentRow === checkUpperLowerLimit(jumpDown())  && getPrevContent() === "O")
+function jumpDownSucceess(){
+	if(jumpUpDownPossible(curRowMinOne(), jumpDown())){
+		yesJumpsUpDown(curRowMinOne());
+	}
+}
+
+function jumpRight(){
+	return checkUpperLowerLimit(prevCol + 2);
+}
+
+function jumpRightLeftPos(x, y){
+	if(getPrevContent() !== getJumpedOverContent(currentRow, x) &&
+		getJumpedOverContent(currentRow, x) !== "" &&
+		getCurContent() === "" && currentCol === y 
+		&& prevRow === currentRow && getPrevContent() === "O")
 	{
 		return true;
 	}else{
@@ -339,25 +316,88 @@ function canJumpDownOver(){
 	}
 }
 
-function jumpDownSucceess(){
-	if(canJumpDownOver()){
-		squres.rows[currentRow].cells[currentCol].textContent = getPrevContent();
-		humanTurnBackground(prevRow, prevCol);
-		squres.rows[checkUpperLowerLimit(currentRow - 1)].cells[currentCol].textContent = "";
-		humanPoints++;
+function yesJumpRightLeft(x){
+	squres.rows[currentRow].cells[currentCol].textContent = getPrevContent();
+	squres.rows[prevRow].cells[prevCol].textContent = "";
+	squres.rows[currentRow].cells[x].textContent = "";
+	humanPoints++;
+}
+
+function jumpRightSucceess(){
+	if(jumpRightLeftPos(prevColPlusOne(), jumpRight())){
+		yesJumpRightLeft(prevColPlusOne());
+	}
+}
+
+
+function jumpLeft(){
+	return checkUpperLowerLimit(prevCol - 2);
+}
+
+function jumpLeftSucceess(){
+	if(jumpRightLeftPos(prevColMinOne(), jumpLeft())){
+		yesJumpRightLeft(prevColMinOne());
+	}
+}
+
+//x --> prevRow - 1
+//y --> prevCol + 1
+//z --> jumpRight()
+//w --> jumpUp()
+function canJumpDiagonal(x, y, z, w){
+	if(getPrevContent() !== getJumpedOverContent(x, y) &&
+		getJumpedOverContent(x, y) !== "" &&
+		getCurContent() === "" && currentCol === z
+		&& currentRow === w && getPrevContent() === "O")
+	{
+		return true;
+	}else{
+		return false;
+	}
+}
+
+//x --> prevRow - 1
+//y --> prevCol + 1
+function yesJumpDiagonal(x, y){
+	squres.rows[currentRow].cells[currentCol].textContent = getPrevContent();
+	squres.rows[prevRow].cells[prevCol].textContent = "";
+	squres.rows[x].cells[y].textContent = "";
+	humanPoints++;
+}
+
+function jumpUpRightSucceess(){
+	if(canJumpDiagonal(prevRowMinOne(), prevColPlusOne(), jumpRight(), jumpUp())){
+		yesJumpDiagonal(prevRowMinOne(), prevColPlusOne());
+	}
+}
+
+function jumpDownRightSucceess(){
+	if(canJumpDiagonal(prevRowPlusOne(), prevColPlusOne(), jumpRight(), jumpDown())){
+		yesJumpDiagonal(prevRowPlusOne(), prevColPlusOne());
+	}
+}
+
+function jumpUpLeftSucceess(){
+	if(canJumpDiagonal(prevRowMinOne(), prevColMinOne(), jumpLeft(), jumpUp())){
+		yesJumpDiagonal(prevRowMinOne(), prevColMinOne());
+	}
+}
+
+function jumpDownLeftSucceess(){
+	if(canJumpDiagonal(prevRowPlusOne(), prevColMinOne(), jumpLeft(), jumpDown())){
+		yesJumpDiagonal(prevRowPlusOne(), prevColMinOne());
 	}
 }
 
 function changeDirectionUp(){
-
-	if(canMoveUp() ||
-		canMoveDown() ||
-		canMoveRight() ||
-		canMoveLeft() ||
-		canMoveUpRight() ||
-		canMoveUpLeft() ||
-		canMoveDownRight() ||
-		canMoveDownLeft()){
+	if(canMoveUpAndDown(moveUp(), rowUp()) ||
+	canMoveUpAndDown(moveDown(), rowDown()) ||
+		canMoveRightAndLeft(moveRight(), colRight()) ||
+		canMoveRightAndLeft(moveLeft(), colLeft()) ||
+		moveDiagonal(moveUpRight(), rowUp(), colRight()) ||
+		moveDiagonal(moveUpLeft(), rowUp(), colLeft()) ||
+		moveDiagonal(moveDownRight(), rowDown(), colRight()) ||
+		moveDiagonal(moveDownLeft(), rowDown(), colLeft())){
 		squres.rows[currentRow].cells[currentCol].textContent = getPrevContent();
 		humanTurnBackground(prevRow, prevCol);
 		rowTracker = [];
@@ -366,6 +406,8 @@ function changeDirectionUp(){
 		console.log("move is not possible");
 	}
 }
+
+/************************/
 
 function getLocationOfAiBases(){
 	aiBases.length = 0;
@@ -561,6 +603,12 @@ document.onclick = function(){
 		changeDirectionUp();
 		jumpUpSucceess();
 		jumpDownSucceess();
+		jumpRightSucceess();
+		jumpLeftSucceess();
+		jumpUpRightSucceess()
+		jumpUpLeftSucceess();
+		jumpDownRightSucceess();
+		jumpDownLeftSucceess();
 		humanP.textContent = humanPoints;
 	}else{
 

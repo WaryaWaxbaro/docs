@@ -40,6 +40,8 @@ var moveChecker = false;
 var aiBaseConts = [];
 
 var myTimer = null;
+var numOfClicks = 0;
+var proceed = true;
 
 var choice = prompt("Do you want try the game yes(y)").toUpperCase();
 startingCommand(choice);
@@ -424,38 +426,47 @@ function getLocationOfAiBases(){
 }
 
 function getBasesByRandom(arr){
+	var moveCounter = 0;
 	var counter = 0;
 	var jumperFound = false;
 	//var num = Math.floor(Math.random() * (arr.length - 1));
 	//var row = arr[num][0];
 	//var col = arr[num][1]
-	while(true){
+	while(moveCounter < 9){
 		var num = Math.floor(Math.random() * (arr.length - 1));
 		var row = arr[num][0];
 		var col = arr[num][1]
-		while(counter < arr.length){
-			if(aiCanJumpUpOver(row, col) || aiCanJumpDownOver(row, col)){
+		while(counter < 9){
+			if(aiCanJumpUpOver(row, col) || aiCanJumpDownOver(row, col) ||
+				aiCanJumpRightOver(row, col) || aiCanJumpLeftOver(row, col) ||
+				aiCanJumpUpRightOver(row, col) || aiCanJumpUpLeftOver(row, col)
+				|| aiCanJumpDownRightOver(row, col) || aiCanJumpDownLeftOver(row, col)){
 				jumpingUpDownPossible(row, col);
 				jumperFound = true;
 				compPoints++;
+				console.log("jump succeeded");
 				break;
 			}
 			num = Math.floor(Math.random() * (arr.length - 1));
 			row = arr[num][0];
 			col = arr[num][1]
 			counter++;
-			console.log("Row: " + row + " col: " + col + " counter: " + counter);
+			//console.log("Row: " + row + " col: " + col + " counter: " + counter);
 		}
 
 		if(jumperFound){
 			break;
 		}else{
 			if(aiCanMoveDown(row, col) || aiCanMoveUp(row, col)
-				|| aiCanMoveRight(row, col) || aiCanMoveLeft(row, col)){
+				|| aiCanMoveRight(row, col) || aiCanMoveLeft(row, col) ||
+				aiCanMoveUpRight(row, col) || aiCanMoveUpLeft(row, col) ||
+				aiCanMoveDownRight(row, col) || aiCanMoveDownLeft(row, col)){
 				moveIsPossibleUpDown(row, col);
 				break;
 			}
 		}
+
+		moveCounter++;
 	}
 }
 
@@ -473,8 +484,9 @@ function aiCellContent(row, col){
 
 function aiCanMoveDown(row, col){
 	var r = checkUpperLowerLimit(row + 1);
+	var c = checkUpperLowerLimit(col);
 	if(aiCellContent(r, col) === "" && r > row 
-		&& aiCellContent(row, col) === compPlayer){
+		&& aiCellContent(row, col) === compPlayer && c === col){
 		return true;
 	}else{
 		return false;
@@ -489,8 +501,9 @@ function aiIsMovingDown(row, col){
 
 function aiCanMoveUp(row, col){
 	var r = checkUpperLowerLimit(row - 1);
+	var c = checkUpperLowerLimit(col);
 	if(aiCellContent(r, col) === "" && r < row 
-		&& aiCellContent(row, col) === compPlayer){
+		&& aiCellContent(row, col) === compPlayer && c === col){
 		return true;
 	}else{
 		return false;
@@ -504,9 +517,11 @@ function aiIsMovingUp(row, col){
 }
 
 function aiCanMoveRight(row, col){
+	var r = checkUpperLowerLimit(row);
 	var c = checkUpperLowerLimit(col + 1);
 	if(aiCellContent(row, c) === "" && c > col 
-		&& aiCellContent(row, col) === compPlayer){
+		&& aiCellContent(row, col) === compPlayer
+		&& r === row){
 		return true;
 	}else{
 		return false;
@@ -520,9 +535,11 @@ function aiIsMovingRight(row, col){
 }
 
 function aiCanMoveLeft(row, col){
+	var r = checkUpperLowerLimit(row);
 	var c = checkUpperLowerLimit(col - 1);
 	if(aiCellContent(row, c) === "" && c < col 
-		&& aiCellContent(row, col) === compPlayer){
+		&& aiCellContent(row, col) === compPlayer
+		&& r === row){
 		return true;
 	}else{
 		return false;
@@ -533,6 +550,74 @@ function aiIsMovingLeft(row, col){
 	var previousContent = aiCellContent(row, col);
 	compTurnBackground(row, col);
 	squres.rows[row].cells[checkUpperLowerLimit(col - 1)].textContent = previousContent;
+}
+
+function aiCanMoveUpRight(row, col){
+	var c = checkUpperLowerLimit(col + 1);
+	var r  = checkUpperLowerLimit(row - 1);
+	if(aiCellContent(r, c) === "" && c > col && r < row
+		&& aiCellContent(row, col) === compPlayer){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function aiIsMovingUpRight(row, col){
+	var previousContent = aiCellContent(row, col);
+	compTurnBackground(row, col);
+	squres.rows[row - 1].cells[checkUpperLowerLimit(col + 1)].textContent = previousContent;
+}
+
+function aiCanMoveUpLeft(row, col){
+	var c = checkUpperLowerLimit(col - 1);
+	var r  = checkUpperLowerLimit(row - 1);
+	if(aiCellContent(r, c) === "" && c < col && r < row
+		&& aiCellContent(row, col) === compPlayer){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function aiIsMovingUpLeft(row, col){
+	var previousContent = aiCellContent(row, col);
+	compTurnBackground(row, col);
+	squres.rows[row - 1].cells[checkUpperLowerLimit(col - 1)].textContent = previousContent;
+}
+
+function aiCanMoveDownRight(row, col){
+	var c = checkUpperLowerLimit(col + 1);
+	var r  = checkUpperLowerLimit(row + 1);
+	if(aiCellContent(r, c) === "" && c > col && r > row
+		&& aiCellContent(row, col) === compPlayer){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function aiIsMovingDownRight(row, col){
+	var previousContent = aiCellContent(row, col);
+	compTurnBackground(row, col);
+	squres.rows[row + 1].cells[checkUpperLowerLimit(col + 1)].textContent = previousContent;
+}
+
+function aiCanMoveDownLeft(row, col){
+	var c = checkUpperLowerLimit(col - 1);
+	var r  = checkUpperLowerLimit(row + 1);
+	if(aiCellContent(r, c) === "" && c < col && r > row
+		&& aiCellContent(row, col) === compPlayer){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function aiIsMovingDownLeft(row, col){
+	var previousContent = aiCellContent(row, col);
+	compTurnBackground(row, col);
+	squres.rows[row + 1].cells[checkUpperLowerLimit(col - 1)].textContent = previousContent;
 }
 
 function aiCanJumpUpOver(row, col){
@@ -556,9 +641,10 @@ function aiIsJumpingUp(row, col){
 
 function aiCanJumpDownOver(row, col){
 	var j = checkUpperLowerLimit(row + 2);
+	var k = checkUpperLowerLimit(col);
 	if(aiCellContent(row, col) !== getJumpedOverContent(checkUpperLowerLimit(row + 1), col) &&
 		getJumpedOverContent(checkUpperLowerLimit(row + 1), col) !== "" &&
-		aiCellContent(j, col) === "" && j > row)
+		aiCellContent(j, col) === "" && k === col);
 	{
 		return true;
 	}else{
@@ -573,17 +659,149 @@ function aiIsJumpingDown(row, col){
 	squres.rows[checkUpperLowerLimit(row + 2)].cells[col].textContent = previousContent;
 }
 
+function aiCanJumpRightOver(row, col){
+	var i = checkUpperLowerLimit(col + 2);
+	if(aiCellContent(row, col) !== getJumpedOverContent(row, checkUpperLowerLimit(col + 1)) &&
+		getJumpedOverContent(row, checkUpperLowerLimit(col + 1)) !== "" &&
+		aiCellContent(row, i) === "" && i > col)
+	{
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function aiIsJumpingRight(row, col){
+	var previousContent = aiCellContent(row, col);
+	compTurnBackground(row, col);
+	squres.rows[row].cells[checkUpperLowerLimit(col + 1)].textContent = "";
+	squres.rows[row].cells[checkUpperLowerLimit(col + 2)].textContent = previousContent;
+}
+
+function aiCanJumpLeftOver(row, col){
+	var i = checkUpperLowerLimit(col - 2);
+	if(aiCellContent(row, col) !== getJumpedOverContent(row, checkUpperLowerLimit(col - 1)) &&
+		getJumpedOverContent(row, checkUpperLowerLimit(col - 1)) !== "" &&
+		aiCellContent(row, i) === "" && i < col)
+	{
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function aiIsJumpingLeft(row, col){
+	var previousContent = aiCellContent(row, col);
+	compTurnBackground(row, col);
+	squres.rows[row].cells[checkUpperLowerLimit(col - 1)].textContent = "";
+	squres.rows[row].cells[checkUpperLowerLimit(col - 2)].textContent = previousContent;
+}
+
+function aiCanJumpUpRightOver(row, col){
+	var i = checkUpperLowerLimit(row - 2);
+	var j = checkUpperLowerLimit(col + 2);
+	if(aiCellContent(row, col) !== 
+		getJumpedOverContent(checkUpperLowerLimit(row - 1), checkUpperLowerLimit(col + 1)) &&
+		getJumpedOverContent(checkUpperLowerLimit(row - 1), checkUpperLowerLimit(col + 1)) !== "" &&
+		aiCellContent(i, j) === "" && i < row && j > col)
+	{
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function aiIsJumpingUpRight(row, col){
+	var previousContent = aiCellContent(row, col);
+	compTurnBackground(row, col);
+	squres.rows[checkUpperLowerLimit(row - 1)].cells[checkUpperLowerLimit(col + 1)].textContent = "";
+	squres.rows[checkUpperLowerLimit(row - 2)].cells[checkUpperLowerLimit(col + 2)].textContent = previousContent;
+}
+
+function aiCanJumpUpLeftOver(row, col){
+	var i = checkUpperLowerLimit(row - 2);
+	var j = checkUpperLowerLimit(col - 2);
+	if(aiCellContent(row, col) !== 
+		getJumpedOverContent(checkUpperLowerLimit(row - 1), checkUpperLowerLimit(col - 1)) &&
+		getJumpedOverContent(checkUpperLowerLimit(row - 1), checkUpperLowerLimit(col - 1)) !== "" &&
+		aiCellContent(i, j) === "" && i < row && j < col)
+	{
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function aiIsJumpingUpLeft(row, col){
+	var previousContent = aiCellContent(row, col);
+	compTurnBackground(row, col);
+	squres.rows[checkUpperLowerLimit(row - 1)].cells[checkUpperLowerLimit(col - 1)].textContent = "";
+	squres.rows[checkUpperLowerLimit(row - 2)].cells[checkUpperLowerLimit(col - 2)].textContent = previousContent;
+}
+
+
+function aiCanJumpDownRightOver(row, col){
+	var i = checkUpperLowerLimit(row + 2);
+	var j = checkUpperLowerLimit(col + 2);
+	if(aiCellContent(row, col) !== 
+		getJumpedOverContent(checkUpperLowerLimit(row + 1), checkUpperLowerLimit(col + 1)) &&
+		getJumpedOverContent(checkUpperLowerLimit(row + 1), checkUpperLowerLimit(col + 1)) !== "" &&
+		aiCellContent(i, j) === "")
+	{
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function aiIsJumpingDownRight(row, col){
+	var previousContent = aiCellContent(row, col);
+	compTurnBackground(row, col);
+	squres.rows[checkUpperLowerLimit(row + 1)].cells[checkUpperLowerLimit(col + 1)].textContent = "";
+	squres.rows[checkUpperLowerLimit(row + 2)].cells[checkUpperLowerLimit(col + 2)].textContent = previousContent;
+}
+
+function aiCanJumpDownLeftOver(row, col){
+	var i = checkUpperLowerLimit(row + 2);
+	var j = checkUpperLowerLimit(col - 2);
+	if(aiCellContent(row, col) !== 
+		getJumpedOverContent(checkUpperLowerLimit(row + 1), checkUpperLowerLimit(col - 1)) &&
+		getJumpedOverContent(checkUpperLowerLimit(row + 1), checkUpperLowerLimit(col - 1)) !== "" &&
+		aiCellContent(i, j) === "")
+	{
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function aiIsJumpingDownLeft(row, col){
+	var previousContent = aiCellContent(row, col);
+	compTurnBackground(row, col);
+	squres.rows[checkUpperLowerLimit(row + 1)].cells[checkUpperLowerLimit(col - 1)].textContent = "";
+	squres.rows[checkUpperLowerLimit(row + 2)].cells[checkUpperLowerLimit(col - 2)].textContent = previousContent;
+}
+
 function moveIsPossibleUpDown(row, col){
 	/*if(aiCanMoveUp(row, col) && aiCanMoveDown(row, col)
 		&& aiCanMoveLeft(row, col) && aiCanMoveRight(row, col) 
 		&& aiTurn && moveChecker === false){
 		aiIsMovingDown(row, col);
-	}else*/ if(aiCanMoveLeft(row, col) && aiTurn){
+	}else*/ 
+	if(aiCanMoveDown(row, col) && aiTurn){
+		aiIsMovingDown(row, col);
+	}else if(aiCanMoveLeft(row, col) && aiTurn){
 		aiIsMovingLeft(row, col);
 	}else if(aiCanMoveRight(row, col) && aiTurn){
 		aiIsMovingRight(row, col);
-	}else if(aiCanMoveDown(row, col) && aiTurn){
-		aiIsMovingDown(row, col);
+	}else if(aiCanMoveDownRight(row, col) && aiTurn){
+		aiIsMovingDownRight(row, col);
+	}else if(aiCanMoveDownLeft(row, col) && aiTurn){
+		aiIsMovingDownLeft(row, col);
+	}else if(aiCanMoveUpRight(row, col) && aiTurn){
+		aiIsMovingUpRight(row, col);
+	}else if(aiCanMoveUpLeft(row, col) && aiTurn){
+		aiIsMovingUpLeft(row, col);
 	}else if(aiCanMoveUp(row, col) && aiTurn){
 		aiIsMovingUp(row, col);
 	}
@@ -594,11 +812,23 @@ function jumpingUpDownPossible(row, col){
 		aiIsJumpingUp(row, col);
 	}else if(aiCanJumpDownOver(row, col) && aiTurn){
 		aiIsJumpingDown(row, col);
+	}else if(aiCanJumpRightOver(row, col) && aiTurn){
+		aiIsJumpingRight(row, col);
+	}else if(aiCanJumpLeftOver(row, col) && aiTurn){
+		aiIsJumpingLeft(row, col);
+	}else if(aiCanJumpUpRightOver(row, col) && aiTurn){
+		aiIsJumpingUpRight(row, col);
+	}else if(aiCanJumpUpLeftOver(row, col) && aiTurn){
+		aiIsJumpingUpLeft(row, col);
+	}else if(aiCanJumpDownRightOver(row, col) && aiTurn){
+		aiIsJumpingDownRight(row, col);
+	}else if(aiCanJumpDownLeftOver(row, col) && aiTurn){
+		aiIsJumpingDownLeft(row, col);
 	}
 }
 
 document.onclick = function(){
-	if(huTurn){
+	if(huTurn && proceed){
 		//getCellPosition();
 		changeDirectionUp();
 		jumpUpSucceess();
@@ -610,8 +840,11 @@ document.onclick = function(){
 		jumpDownRightSucceess();
 		jumpDownLeftSucceess();
 		humanP.textContent = humanPoints;
-	}else{
+		numOfClicks++;
+	}
 
+	if(numOfClicks === 3){
+		proceed = false;
 	}
 }
 
@@ -639,6 +872,8 @@ function turnFunc() {
 		//turnerBackground.classList.add("actionTurn");
 	}
 	checkLooseOrWin(humanPoints, compPoints);
+	proceed = true;
+	numOfClicks = 0;
 }
 
 function checkLooseOrWin(x, y){

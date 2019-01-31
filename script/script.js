@@ -644,7 +644,7 @@ function aiCanJumpDownOver(row, col){
 	var k = checkUpperLowerLimit(col);
 	if(aiCellContent(row, col) !== getJumpedOverContent(checkUpperLowerLimit(row + 1), col) &&
 		getJumpedOverContent(checkUpperLowerLimit(row + 1), col) !== "" &&
-		aiCellContent(j, col) === "" && k === col);
+		aiCellContent(j, col) === "" && k === col)
 	{
 		return true;
 	}else{

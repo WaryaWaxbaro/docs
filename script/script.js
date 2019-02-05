@@ -7,11 +7,16 @@ var gameFinnished = false;
 
 var tabCols = document.querySelectorAll("#col");
 var tabRows = document.querySelectorAll("#row");
-var htmlTable = document.getElementsByTagName("table");
+var htmlTable = document.getElementsByTagName("table")[0];
 var squres = document.getElementById("square");
 var turner = document.querySelector(".whoseturn");
 var humanP = document.getElementById("humanPoints");
 var compP = document.getElementById("compPoints");
+var startButton = document.getElementById("startb");
+var modal = document.getElementById('myModal');
+var btn = document.getElementById("myBtn");
+var span = document.getElementsByClassName("close")[0];
+var popupText = document.getElementById("modaltext");
 
 //var turnerBackground = document.querySelector(".whoseturn");
 
@@ -42,11 +47,43 @@ var aiBaseConts = [];
 var myTimer = null;
 var numOfClicks = 0;
 var proceed = true;
+var startPressed = true;
 
-var choice = prompt("Do you want try the game yes(y)").toUpperCase();
-startingCommand(choice);
+//var choice = prompt("Do you want try the game yes(y)").toUpperCase();
+//startingCommand(choice);
 getCellPosition();
 //populateTable();
+
+startButton.addEventListener("click", function(){
+	if(startPressed){
+		startGame();
+	}else{
+		restartGame();
+	}
+});
+
+function startGame(){
+	populateTable();
+	huTurn = true;
+	turner.classList.add("yourturn");
+	turner.textContent = "Your turn, Move faster";
+	startButton.textContent = "restart game";
+	startPressed = false;
+}
+
+function restartGame(){
+	huTurn = false;
+	aiTurn = false;
+	humanPoints = 0;
+	compPoints = 0;
+	humanP.textContent = humanPoints;
+	compP.textContent = compPoints;
+	turner.classList.remove("yourturn");
+	turner.classList.remove("myturn");
+	turner.textContent = "";
+	clearInterval(myTimer);
+	startGame();
+}
 
 function startingCommand(choice){
 	if(choice === yes.toUpperCase()){
@@ -827,7 +864,8 @@ function jumpingUpDownPossible(row, col){
 	}
 }
 
-document.onclick = function(){
+htmlTable.onclick = function(){
+	console.log("document Clicked");
 	if(huTurn && proceed){
 		//getCellPosition();
 		changeDirectionUp();
@@ -843,19 +881,25 @@ document.onclick = function(){
 		numOfClicks++;
 	}
 
-	if(numOfClicks === 3){
+	if(numOfClicks >= 2){
 		proceed = false;
+		aiTurn = true;
+		huTurn = false;
+		myFunction();
 	}
 }
 
 
 function myFunction() {
-  myTimer = setInterval(turnFunc, 5000);
+	myTimer = setInterval(turnFunc, 5000);
+	turner.classList.remove("yourturn");
+	turner.classList.add("myturn");
+	turner.textContent = "My turn, Please wait";
 }
 
 function turnFunc() {
-	huTurn = !huTurn;
-	aiTurn = !aiTurn;
+	//huTurn = !huTurn;
+	//aiTurn = !aiTurn;
 
 	if(aiTurn){
 		//turnerBackground.classList.remove("actionTurn");
@@ -865,29 +909,38 @@ function turnFunc() {
 		getLocationOfAiBases();
 		getBasesByRandom(aiBases);
 		compP.textContent = compPoints;
-	}else{
-		turner.classList.remove("myturn");
-		turner.classList.add("yourturn");
-		turner.textContent = "Your turn, Move faster";
-		//turnerBackground.classList.add("actionTurn");
+		huTurn = true;
 	}
 	checkLooseOrWin(humanPoints, compPoints);
 	proceed = true;
 	numOfClicks = 0;
+	if(huTurn){
+		aiTurn = false;
+		turner.classList.remove("myturn");
+		turner.classList.add("yourturn");
+		turner.textContent = "Your turn, Move faster";
+		//turnerBackground.classList.add("actionTurn");
+		clearInterval(myTimer);
+	}
 }
 
 function checkLooseOrWin(x, y){
 	if(x >= 9 && y < 9){
 		gameFinnished = true;
-		alert("congratulations you won");
+		//alert("congratulations you won");
+		popupText.textContent = "Congratulations you won!";
+		modal.style.display = "block";
 		result();
 	}else if(y >= 9 && x < 9){
 		gameFinnished = true;
-		alert("Sorry, I am the winner");
+		//alert("Sorry, I am the winner");
+		popupText.textContent = "Sorry, I am the winner";
+		modal.style.display = "block";
 		result();
 	}
 }
-var again = null;
+
+
 function result(){
 	if(gameFinnished){
 		huTurn = false;
@@ -896,7 +949,7 @@ function result(){
 		compPoints = 0;
 		humanP.textContent = humanPoints;
 		compP.textContent = compPoints;
-		clearInterval(myTimer);
+		//clearInterval(myTimer);
 		turner.textContent = "GAME OVER!";
 		/*again = prompt("Do you want try the game again yes(y)").toUpperCase();
 		if(again === null || again === ""){
@@ -909,4 +962,15 @@ function result(){
 	}
 }
 
-myFunction();
+//myFunction();
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}

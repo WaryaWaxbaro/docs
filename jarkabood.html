@@ -9,22 +9,26 @@
 <body>
 	<div id="headContainer">
 		<h1>Jar Kabood Game</h1>
-		<p>The game is between X's and O's. Points are collected by jumping over one's opponent. Jumping can be performed in any direction. When human player needs to jump, first select where to <strong>jump from</strong> and then where to <strong>jump to.</strong> Have a nice try.</p>
+		<p>The game is between X's and O's. Points are collected by jumping over one's opponent. Jumping can be performed in any direction. When human player needs to jump, first select where to <strong>jump from</strong> and then where to <strong>jump to.</strong> Jumping is not possible if immediate squares are empty, but moving is possible. Have a nice try.</p>
+	</div>
+	<div id="startcontainer">
+		<button id="startb">Start game</button>
 	</div>
 	<div id="actionContainer">
 		<div id="actionTurn">
-			<p>Your points: <span id="humanPoints"></span></p>
+			<p>Your points: <span id="humanPoints">0</span></p>
 		</div>
 		<div id="actionTurn">
-			<p>My points: <span id="compPoints"></span></p>
+			<p>My points: <span id="compPoints">0</span></p>
 		</div>
 	</div>
 	<div id="infoContainer">
 		<p class="whoseturn"></p>
 	</div>
-	<div>
-		<div>
-			
+	<div id="myModal" class="modal">
+		<span class="close">&times;</span>
+		<div class="modalcontent">
+			<p id="modaltext"></p>
 		</div>
 	</div>
 	<div class="container">
@@ -66,9 +70,12 @@
 			</tr>
 		</table>
 	</div>
+	<div id="invisiblediv">
+		<img src="images/jar.png">
+	</div>
 	<div id="footcontainer">
 		<div id="footarticle">
-			<p>The game as well as the whole portofolio webpage was created while I was learning HTML5, CSS with Bootstrap and JS. There is a better and more interactive way to create the game with html5 canvas and unbeatable algorithm such as minimax, planning to upgrade the game soon.</p>
+			<p>The game, as well as the whole portofolio webpage, was created while I was learning HTML5, CSS with Bootstrap and JS. The game does not use any algorithm or other JavaScript libraries, it is just plain Vanilla JS.</p>
 		</div>
 	</div>
 <script type="text/javascript" src="script/script.js"></script>

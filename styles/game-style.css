@@ -121,7 +121,8 @@ p{
 }
 
 #invisiblediv img{
-	display: none;
+	width: 0px;
+	height: 0px;
 }
 
 /* The Modal (background) */

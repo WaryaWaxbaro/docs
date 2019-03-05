@@ -134,12 +134,6 @@ body{
 	color: white;
 }
 
-#newcontents p{
-	font-family: 'Ubuntu', sans-serif;
-	line-height: 1.6;
-	letter-spacing: 0.0625em;
-}
-
 .tab, .tabcontent{
 	font-family: 'Ubuntu', sans-serif;
 	line-height: 1.6;

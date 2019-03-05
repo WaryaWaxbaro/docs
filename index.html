@@ -4,13 +4,15 @@
 	<title>Shakur Hassan</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
 	<link href="https://fonts.googleapis.com/css?family=Orbitron:400,700,900|Ubuntu:400,700" rel="stylesheet">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<link rel="stylesheet" type="text/css" href="styles/home-style.css">
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133841330-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133841330-1"></script >
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -73,74 +75,62 @@
 <div class="career-container">
   <p id="sub-heading">skills</p>
 </div>
-<div class="container" id="skillscontainer">
-  <div class="row">
-    <div class="col-sm-4 col-md-4">
-      <div class="thumbnail">
-        <img src="images/java.png" alt="Java logo">
-        <div class="caption">
-          <h3>Java</h3>
-          <p>During my studies, I have created Java console applications as well as Java FX applications. It was interesting and I really liked it. I am still learning to further my Java skills.</p>
-          <br>
-        </div>
-      </div>
-    </div>
-      <div class="col-sm-4 col-md-4">
-      <div class="thumbnail">
-        <img src="images/android.png" alt="Android logo">
-        <div class="caption">
-          <h3>Android</h3>
-          <p>Android studio with Java was a great thing to learn. I have created many Android applications, some of the interesting projects were Weather and Menu app, Bluetooth photo share app and Trek planner app.</p>
-        </div>
-      </div>
-    </div>
-      <div class="col-sm-4 col-md-4">
-      <div class="thumbnail">
-        <img src="images/js.png" alt="HTML5 CSS JS logo">
-        <div class="caption">
-          <h3>HTML5, CSS and JS</h3>
-          <p>After I have created my first simple website for free, I became interested to learn more about Web development. I have already started learning on my own.</p>
-          <br>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="container" id="skillscontainer" id="newcontents">
+  <div class="tab">
+  <button class="tablinks" onmouseover="openSkill(event, 'java')"><span><i class="fab fa-java"></i></span> Java</button>
+  <button class="tablinks" onmouseover="openSkill(event, 'android')"><span><i class="fab fa-android"></i></span> Android</button>
+  <button class="tablinks" onmouseover="openSkill(event, 'html')"><span><i class="fab fa-html5"></i> <i class="fab fa-css3-alt"></i></span> HTML and CSS</button>
+  <button class="tablinks" onmouseover="openSkill(event, 'js')"><span><i class="fab fa-js-square"></i></span> JavaScript</button>
+  <button class="tablinks" onmouseover="openSkill(event, 'nodejs')"><span><i class="fab fa-node"></i></span> Nodejs</button>
+  <button class="tablinks" onmouseover="openSkill(event, 'databases')"><span><i class="fas fa-database"></i></span> MySQL, Mongodb, JSON</button>
+  <button class="tablinks" onmouseover="openSkill(event, 'csharp')"> <span><i class="fab fa-windows"></i></span> C#</button>
+  <button class="tablinks" onmouseover="openSkill(event, 'embedded')"><span><i class="fas fa-code"></i></span> Embedded systems and C/C++</button>
+</div>
+
+<div id="java" class="tabcontent">
+  <h3>Java</h3>
+  <p>During my studies, I have created Java console applications as well as Java FX applications. It was interesting and I really liked it. I am still learning to further my Java skills.</p>
+</div>
+
+<div id="android" class="tabcontent">
+  <h3>Android</h3>
+  <p>Android studio with Java was a great thing to learn. I have created many Android applications, some of the interesting projects were Weather and Menu app, Bluetooth photo share app and Trek planner app.</p>
+  <p><a href="https://github.com/WaryaWaxbaro/menuweather.git" target="_blank">Menu and Weather app source code</a> and <a href="https://github.com/WaryaWaxbaro/bt-image-app-code.git" target="_blank">Bluetooth photo share app</a></p>
+</div>
+
+<div id="html" class="tabcontent">
+  <h3>HTML5 AND CSS3</h3>
+  <p>After I have created my first simple website for free, I became interested to learn more about Web development. I have already started learning on my own.</p>
+</div>
+
+<div id="js" class="tabcontent">
+  <h3>JavaScript</h3>
+  <p>I have used JavaScript with CSS and HTML to create simple static websites and I have also created a simple board game with JS. During my free time I usually read about JavaScript from MDN and other sources. <a href="https://waryawaxbaro.github.io/cibada/" target="_blank">Here is one of my projects</a></p>
+</div>
+
+<div id="nodejs" class="tabcontent">
+  <h3>Node.js</h3>
+  <p>I am still learning Node.js during my free time. I have already created my few projects. The source code of one of the projects can be found in GitHub <a href="https://github.com/WaryaWaxbaro/playersprofile.git" target="_blank">Click here to view</a></p>
+</div>
+
+<div id="databases" class="tabcontent">
+  <h3>MySQL, Mongodb and JSON</h3>
+  <p>Most of the projects that I have participated used MySQL or SQLite database engine. I have also worked with Mongodb and JSON APIs</p>
+</div>
+
+<div id="csharp" class="tabcontent">
+  <h3>C#</h3>
+  <p>During my earlier years of studies, I have learnt to program with C# and I have created desktop applications and simple games with Unity.</p>
+</div>
+
+<div id="embedded" class="tabcontent">
+  <h3>Embedded systems and C/C++</h3>
+  <p>I have introduced my self to these powerful programming languages through different projects. Few projects of Raspberry Pi with python, Arduino powered racing car and Bank automatic app with Qt and C++.</p>
+</div>
+
+<div class="clearfix"></div>
 </div>
 <div class="container" id="skillscontainer">
-  <div class="row">
-    <div class="col-sm-4 col-md-4">
-      <div class="thumbnail">
-        <img src="images/mysql.png" alt="MySQL">
-        <div class="caption">
-          <h3>MySQL</h3>
-          <p>Most of the projects that I have participated used MySQL or SQLite database engine.</p>
-          <br>
-          <br>
-          <br>
-        </div>
-      </div>
-    </div>
-      <div class="col-sm-4 col-md-4">
-      <div class="thumbnail">
-        <img src="images/Csharp.png" alt="Csharp logo">
-        <div class="caption">
-          <h3>C#</h3>
-          <p>During my earlier years of studies, I have learnt to program with C# and I have created desktop applications and simple games with Unity.</p>
-          <br>
-          <br>
-        </div>
-      </div>
-    </div>
-      <div class="col-sm-4 col-md-4">
-      <div class="thumbnail">
-        <img src="images/cplus.png" alt="C++">
-        <div class="caption">
-          <h3>C++ and Python</h3>
-          <p>I have introduced my self to these powerful programming languages through different projects. Few projects of Raspberry Pi with python, Arduino powered racing car and Bank automatic app with Qt and C++.</p>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 <div class="container-fluid" id="footercontainer">
   <div class="jumbotron">
@@ -159,8 +149,22 @@
       $(document).scroll(function(){
         var $nav = $("#mainNavbar");
         $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height());
-      })
-    })
+      });
+    });
+
+    function openSkill(evt, skillName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(skillName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
 </script>
 </body>
 </html>
